@@ -18,48 +18,40 @@
 
 package com.mlc.androidmvp.login;
 
-public class LoginPresenter implements LoginInteractor.OnLoginFinishedListener {
+import com.mlc.mvp.PresenterLifecycle;
 
-    private LoginView loginView;
-    private LoginInteractor loginInteractor;
+public class LoginPresenter extends PresenterLifecycle<LoginView> implements LoginModel.OnLoginFinishedListener {
 
-    LoginPresenter(LoginView loginView, LoginInteractor loginInteractor) {
-        this.loginView = loginView;
-        this.loginInteractor = loginInteractor;
-    }
+    private LoginModel loginModel = new LoginModel();
 
     public void validateCredentials(String username, String password) {
-        if (loginView != null) {
-            loginView.showProgress();
+        if (mView != null) {
+            mView.showProgress();
         }
 
-        loginInteractor.login(username, password, this);
-    }
-
-    public void onDestroy() {
-        loginView = null;
+        loginModel.login(username, password, this);
     }
 
     @Override
     public void onUsernameError() {
-        if (loginView != null) {
-            loginView.setUsernameError();
-            loginView.hideProgress();
+        if (mView != null) {
+            mView.setUsernameError();
+            mView.hideProgress();
         }
     }
 
     @Override
     public void onPasswordError() {
-        if (loginView != null) {
-            loginView.setPasswordError();
-            loginView.hideProgress();
+        if (mView != null) {
+            mView.setPasswordError();
+            mView.hideProgress();
         }
     }
 
     @Override
     public void onSuccess() {
-        if (loginView != null) {
-            loginView.navigateToHome();
+        if (mView != null) {
+            mView.navigateToHome();
         }
     }
 }

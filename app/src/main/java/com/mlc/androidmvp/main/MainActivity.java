@@ -29,6 +29,7 @@ import android.widget.Toast;
 
 
 import com.mlc.androidmvp.R;
+import com.mlc.mvp.MvpLifecycleHelper;
 
 import java.util.List;
 
@@ -44,14 +45,9 @@ public class MainActivity extends AppCompatActivity implements MainView {
         setContentView(R.layout.activity_main);
         recyclerView = findViewById(R.id.list);
         progressBar = findViewById(R.id.progress);
-        presenter = new MainPresenter(this, new FindItemsInteractor());
+        presenter = MvpLifecycleHelper.from(this, new MainPresenter());
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        presenter.onResume();
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -67,12 +63,6 @@ public class MainActivity extends AppCompatActivity implements MainView {
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
-
-    @Override
-    protected void onDestroy() {
-        presenter.onDestroy();
-        super.onDestroy();
     }
 
     @Override

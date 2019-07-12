@@ -3,7 +3,7 @@ package com.mlc.androidmvp.login;
 import android.os.Handler;
 import android.text.TextUtils;
 
-public class LoginInteractor {
+public class LoginModel {
 
     interface OnLoginFinishedListener {
         void onUsernameError();

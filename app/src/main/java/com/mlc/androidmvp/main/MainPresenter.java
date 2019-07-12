@@ -18,44 +18,34 @@
 
 package com.mlc.androidmvp.main;
 
+import com.mlc.mvp.PresenterLifecycle;
+
 import java.util.List;
 
-class MainPresenter {
+class MainPresenter extends PresenterLifecycle<MainView> {
 
-    private MainView mainView;
-    private FindItemsInteractor findItemsInteractor;
+    private FindItemsModel findItemsModel = new FindItemsModel();
 
-    MainPresenter(MainView mainView, FindItemsInteractor findItemsInteractor) {
-        this.mainView = mainView;
-        this.findItemsInteractor = findItemsInteractor;
-    }
 
-    void onResume() {
-        if (mainView != null) {
-            mainView.showProgress();
+    public void onResume() {
+        if (mView != null) {
+            mView.showProgress();
         }
 
-        findItemsInteractor.findItems(this::onFinished);
+        findItemsModel.findItems(this::onFinished);
     }
 
     void onItemClicked(String item) {
-        if (mainView != null) {
-            mainView.showMessage(String.format("%s clicked", item));
+        if (mView != null) {
+            mView.showMessage(String.format("%s clicked", item));
         }
-    }
-
-    void onDestroy() {
-        mainView = null;
     }
 
     public void onFinished(List<String> items) {
-        if (mainView != null) {
-            mainView.setItems(items);
-            mainView.hideProgress();
+        if (mView != null) {
+            mView.setItems(items);
+            mView.hideProgress();
         }
     }
 
-    public MainView getMainView() {
-        return mainView;
-    }
 }

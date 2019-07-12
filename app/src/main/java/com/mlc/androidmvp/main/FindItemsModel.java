@@ -23,7 +23,7 @@ import android.os.Handler;
 import java.util.Arrays;
 import java.util.List;
 
-public class FindItemsInteractor {
+public class FindItemsModel {
 
     interface OnFinishedListener {
         void onFinished(List<String> items);

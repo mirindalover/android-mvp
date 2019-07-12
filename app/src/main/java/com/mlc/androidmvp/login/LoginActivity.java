@@ -27,6 +27,7 @@ import android.widget.ProgressBar;
 
 import com.mlc.androidmvp.R;
 import com.mlc.androidmvp.main.MainActivity;
+import com.mlc.mvp.MvpLifecycleHelper;
 
 
 public class LoginActivity extends AppCompatActivity implements LoginView {
@@ -46,14 +47,9 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         password = findViewById(R.id.password);
         findViewById(R.id.button).setOnClickListener(v -> validateCredentials());
 
-        presenter = new LoginPresenter(this, new LoginInteractor());
+        presenter = MvpLifecycleHelper.from(this,new LoginPresenter());
     }
 
-    @Override
-    protected void onDestroy() {
-        presenter.onDestroy();
-        super.onDestroy();
-    }
 
     @Override
     public void showProgress() {

@@ -18,7 +18,9 @@
 
 package com.mlc.androidmvp.login;
 
-public interface LoginView {
+import com.mlc.mvp.IMvpView;
+
+public interface LoginView extends IMvpView{
     void showProgress();
 
     void hideProgress();

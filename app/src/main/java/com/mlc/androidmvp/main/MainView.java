@@ -18,9 +18,11 @@
 
 package com.mlc.androidmvp.main;
 
+import com.mlc.mvp.IMvpView;
+
 import java.util.List;
 
-public interface MainView {
+public interface MainView extends IMvpView{
 
     void showProgress();
 
