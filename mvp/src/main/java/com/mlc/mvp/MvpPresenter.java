@@ -6,9 +6,9 @@ package com.mlc.mvp;
  * 仅用于不使用lifecycle时--不关注生命周期，可继承MvpPresenter来写presenter
  */
 
-public class MvpPresenter<V extends IMvpView> implements IMvpPresenter<V> {
+public abstract class MvpPresenter<V extends IMvpView> implements IMvpPresenter<V> {
 
-    protected V mView;
+    private V mView;
 
     @Override
     public void onBind(V view) {
@@ -24,4 +24,13 @@ public class MvpPresenter<V extends IMvpView> implements IMvpPresenter<V> {
     public void onViewDetach() {
         mView = null;
     }
+
+    protected V getView() {
+        if (mView == null) {
+            return createDummyView();
+        }
+        return mView;
+    }
+
+    protected abstract V createDummyView();
 }

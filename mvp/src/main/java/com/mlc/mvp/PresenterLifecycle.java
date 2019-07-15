@@ -12,7 +12,7 @@ import io.reactivex.subjects.BehaviorSubject;
  * 具有生命周期的Presenter
  */
 
-public class PresenterLifecycle<V extends IMvpView> extends MvpPresenter<V> implements LifecycleObserver, IPresenterLifecycle<V> {
+public abstract class PresenterLifecycle<V extends IMvpView> extends MvpPresenter<V> implements LifecycleObserver, IPresenterLifecycle<V> {
 
     private final BehaviorSubject<Lifecycle.Event> mLifecycleSubject = BehaviorSubject.create();
 

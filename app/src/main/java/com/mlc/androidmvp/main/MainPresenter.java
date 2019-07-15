@@ -28,24 +28,48 @@ class MainPresenter extends PresenterLifecycle<MainView> {
 
 
     public void onResume() {
-        if (mView != null) {
-            mView.showProgress();
+        if (getView() != null) {
+            getView().showProgress();
         }
 
         findItemsModel.findItems(this::onFinished);
     }
 
     void onItemClicked(String item) {
-        if (mView != null) {
-            mView.showMessage(String.format("%s clicked", item));
+        if (getView() != null) {
+            getView().showMessage(String.format("%s clicked", item));
         }
     }
 
     public void onFinished(List<String> items) {
-        if (mView != null) {
-            mView.setItems(items);
-            mView.hideProgress();
+        if (getView() != null) {
+            getView().setItems(items);
+            getView().hideProgress();
         }
     }
 
+    @Override
+    protected MainView createDummyView() {
+        return new MainView() {
+            @Override
+            public void showProgress() {
+
+            }
+
+            @Override
+            public void hideProgress() {
+
+            }
+
+            @Override
+            public void setItems(List<String> items) {
+
+            }
+
+            @Override
+            public void showMessage(String message) {
+
+            }
+        };
+    }
 }

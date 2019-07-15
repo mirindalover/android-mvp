@@ -25,8 +25,8 @@ public class LoginPresenter extends PresenterLifecycle<LoginView> implements Log
     private LoginModel loginModel = new LoginModel();
 
     public void validateCredentials(String username, String password) {
-        if (mView != null) {
-            mView.showProgress();
+        if (getView() != null) {
+            getView().showProgress();
         }
 
         loginModel.login(username, password, this);
@@ -34,24 +34,54 @@ public class LoginPresenter extends PresenterLifecycle<LoginView> implements Log
 
     @Override
     public void onUsernameError() {
-        if (mView != null) {
-            mView.setUsernameError();
-            mView.hideProgress();
+        if (getView() != null) {
+            getView().setUsernameError();
+            getView().hideProgress();
         }
     }
 
     @Override
     public void onPasswordError() {
-        if (mView != null) {
-            mView.setPasswordError();
-            mView.hideProgress();
+        if (getView() != null) {
+            getView().setPasswordError();
+            getView().hideProgress();
         }
     }
 
     @Override
     public void onSuccess() {
-        if (mView != null) {
-            mView.navigateToHome();
+        if (getView() != null) {
+            getView().navigateToHome();
         }
+    }
+
+    @Override
+    protected LoginView createDummyView() {
+        return new LoginView() {
+            @Override
+            public void showProgress() {
+
+            }
+
+            @Override
+            public void hideProgress() {
+
+            }
+
+            @Override
+            public void setUsernameError() {
+
+            }
+
+            @Override
+            public void setPasswordError() {
+
+            }
+
+            @Override
+            public void navigateToHome() {
+
+            }
+        };
     }
 }
