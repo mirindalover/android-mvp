@@ -1,9 +1,10 @@
 package com.mlc.mvp;
 
-import androidx.lifecycle.Lifecycle;
-import androidx.lifecycle.LifecycleObserver;
-import androidx.lifecycle.LifecycleOwner;
-import androidx.lifecycle.OnLifecycleEvent;
+import android.arch.lifecycle.Lifecycle;
+import android.arch.lifecycle.LifecycleObserver;
+import android.arch.lifecycle.LifecycleOwner;
+import android.arch.lifecycle.OnLifecycleEvent;
+
 import io.reactivex.subjects.BehaviorSubject;
 
 /**
@@ -20,7 +21,11 @@ public abstract class PresenterLifecycle<V extends IMvpView> extends MvpPresente
     public void onBind(V view) {
         super.onBind(view);
         if (view instanceof LifecycleOwner) {
-            ((LifecycleOwner) view).getLifecycle().addObserver(this);
+            Lifecycle lifecycle = ((LifecycleOwner) view).getLifecycle();
+            lifecycle.addObserver(this);
+            if (lifecycle.getCurrentState().isAtLeast(Lifecycle.State.CREATED)) {
+                this.onViewAttach();
+            }
         }
     }
 

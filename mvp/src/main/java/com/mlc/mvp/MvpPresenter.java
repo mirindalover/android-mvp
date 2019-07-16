@@ -1,5 +1,10 @@
 package com.mlc.mvp;
 
+import android.app.Activity;
+import android.content.Context;
+import android.support.v4.app.Fragment;
+import android.view.View;
+
 /**
  * Created by mulianchao on 2019/7/12.
  * <p>
@@ -10,9 +15,18 @@ public abstract class MvpPresenter<V extends IMvpView> implements IMvpPresenter<
 
     private V mView;
 
+    protected Context mContext;
+
     @Override
     public void onBind(V view) {
         mView = view;
+        if (view instanceof Fragment) {
+            mContext = ((Fragment) view).getContext();
+        } else if (view instanceof Activity) {
+            mContext = (Activity) view;
+        } else if (view instanceof View) {
+            mContext = ((View) view).getContext();
+        }
     }
 
     @Override
