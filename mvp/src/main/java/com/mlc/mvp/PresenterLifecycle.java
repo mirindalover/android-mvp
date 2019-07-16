@@ -22,8 +22,9 @@ public abstract class PresenterLifecycle<V extends IMvpView> extends MvpPresente
         super.onBind(view);
         if (view instanceof LifecycleOwner) {
             Lifecycle lifecycle = ((LifecycleOwner) view).getLifecycle();
+            //会立马调用对应的监听
             lifecycle.addObserver(this);
-            if (lifecycle.getCurrentState().isAtLeast(Lifecycle.State.CREATED)) {
+            if (lifecycle.getCurrentState().isAtLeast(Lifecycle.State.STARTED)) {
                 this.onViewAttach();
             }
         }
