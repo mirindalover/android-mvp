@@ -13,7 +13,7 @@ presenter interface extends IPresenterLifecycle(user lifecycle) or IMvpPresenter
 
 #### user view
 
-mView.xxx
+getView().xxx
 
 ### create presenter
 
@@ -22,11 +22,4 @@ mView.xxx
 MvpLifecycleHelper.from(this,new xxxPresenter());
 ```
 
-### Future
-
-when view destroy ,our presenter'mView will be null
-
-so wo should confirm mView != null
-
-future : use ViewProxy witch all methods confirm view not null
 
